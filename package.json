@@ -1,0 +1,23 @@
+{
+  "name": "linked-list",
+  "version": "1.0.0",
+  "description": "",
+  "main": "node.js",
+  "scripts": {
+    "test": "jest --verbose --coverage"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/KhwailehFatima/linked-list.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/KhwailehFatima/linked-list/issues"
+  },
+  "homepage": "https://github.com/KhwailehFatima/linked-list#readme",
+  "dependencies": {
+    "jest": "^29.0.2"
+  }
+}
