@@ -1,93 +1,103 @@
 'use strict'
 
 const Node = require('./node');
-
+ 
 class LinkedList {
-    constructor() {
-        this.head = null; // the h0ead is null in the beginning
-    this.size=0;
-    }
-
-    insert(val) {
-        const node = new Node(val);
-        if (!this.head) {// Means ll is empty
-            this.head = node;
-        } else {
-            node.next = this.head;
-            this.head = node;
-        }
-    }
-
-    append(val) {
-        const node = new Node(val);
-        if (!this.head) {
-            this.head = node;
-        } else {
-            let currentNode = this.head;
-            while (currentNode.next) {
-                currentNode = currentNode.next;
-            }
-            currentNode.next = node;
-        }
-    }
-
-  // Insert at index
-  insertAt(val, index) {
-    //  If index is out of range
-    if (index > 0 && index > this.size) {
-      return;
-    }
-
-    // If first index
-    if (index === 0) {
-      this.insert(val);
-      return;
-    }
-
-    const node = new Node(val);
-    let current, previous;
-
-    // Set current to first
-    current = this.head;
-    let count = 0;
-
-    while (count < index) {
-      previous = current; // Node before index
-      count++;
-      current = current.next; // Node after index
-    }
-
-    node.next = current;
-    previous.next = node;
-
-    this.size++;
+  constructor() {
+      this.head = null
+      this.tail = null;
+      this.length = 0;
   }
 
-     // Remove at index
-     removeAt(index) {
-        if (index > 0 && index > this.size) {
-          return;
-        }
-    
-        let current = this.head;
-        let previous;
-        let count = 0;
-    
-        // Remove first
-        if (index === 0) {
-          this.head = current.next;
-        } else {
-          while (count < index) {
-            count++;
-            previous = current;
-            current = current.next;
-          }
-    
-          previous.next = current.next;
-        }
-    
-        this.size--;
+  insert(val) {
+      const node = new Node(val);
+      if (!this.head) { // Means ll is empty
+          this.head = node;
+      } else { // LL not empty
+          node.next = this.head;
+          this.head = node
       }
+      if (this.length == 0)
+          this.tail = node;
+      this.length += 1;
+
+  }
+
+  append(val) {
+      const node = new Node(val);
+      if (!this.head) {
+          this.head = node;
+      } else {
+          let currentNode = this.head;
+          while (currentNode.next) {
+              currentNode = currentNode.next;
+          }
+          currentNode.next = node;
+      }
+      this.tail = node;
+      this.length += 1;
+  }
+  printlist() {
+      let str = "";
+      if (this.length > 0) {
+          let currentNode = this.head;
+
+          for (let i = 0; i < this.length; i++) {
+              str += `${currentNode.value} -> `
+              currentNode = currentNode.next;
+          }
+          console.log(str)
+      }
+  }
+
+
+  deletemiddle() {
+      let loc;
+      if (this.length != 0) {
+          if (this.length === 1) {
+              this.head = null;
+              this.tail = null;
+              this.length = 0
+          } else
+              if (this.length === 2) {
+                  this.head = this.head.next;
+                  this.length = 1;
+              }
+              else {
+                  loc = Math.ceil(this.length / 2);
+                  let currentNode = this.head;
+                  for (let i = 1; i < loc - 1; i++) {
+                      currentNode = currentNode.next;
+                  }
+                  let temp = currentNode.next.next;
+                  currentNode.next = temp;
+                  this.length -= 1;
+              }
+
+      }
+  }
+
+  insertat(loc, val) {
+      if (loc > this.length) {
+          this.append(val)
+      }
+      else {
+          if (this.length == 1 || loc == 0) {
+              this.insert(val)
+          }
+          else {
+              const node = new Node(val);
+              let currentNode = this.head;
+              for (let i = 1; i < loc - 1; i++) {
+                  currentNode = currentNode.next;
+              }
+              node.next = currentNode.next;
+              currentNode.next = node;
+              this.length += 1;
+          }
+      }
+  }
+
 }
 
 module.exports = LinkedList;
